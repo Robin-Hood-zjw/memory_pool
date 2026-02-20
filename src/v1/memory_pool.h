@@ -22,10 +22,13 @@ namespace MemoryPool {
             Slot* _firstBlock;
             std::atomic<Slot*> _freeList;
 
+            Slot* popFreeList();
+
         public:
             MemoryPool(size_t blockSize = 4096);
             ~MemoryPool();
 
             void init(size_t);
+            void* allocate();
     };
 }

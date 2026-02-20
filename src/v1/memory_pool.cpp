@@ -28,4 +28,20 @@ namespace MemoryPool {
         _lastSlot = nullptr;
         _freeList = nullptr;
     }
+
+    Slot* MemoryPool::popFreeList() {
+        while (true) {
+            Slot* oldHead = _freeList.load(std::memory_order_acquire);
+            if (!oldHead) return nullptr;
+
+            Slot* newHead = nullptr;
+            try {
+                newHead = oldHead->next.load(std::memory_order_relaxed);
+            } catch (...) {
+                continue;
+            }
+
+            if (_freeList.compare_exchange_weak(oldHead, newHead, std::memory_order_acquire, std::memory_order_relaxed)) return oldHead;
+        }
+    }
 }
