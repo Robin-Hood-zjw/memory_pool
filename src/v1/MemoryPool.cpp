@@ -58,4 +58,9 @@ namespace MemoryPool {
 
         _lastSlot = reinterpret_cast<Slot*>(reinterpret_cast<size_t>(newBlock) + _blockSize - _slotSize + 1);
     }
+
+    size_t MemoryPool::padPointer(char* p, size_t align) {
+        size_t rem = reinterpret_cast<size_t>(p) % align;
+        return rem == 0 ? 0 : align - rem;
+    }
 }
