@@ -3,28 +3,29 @@
 #include <mutex>
 #include <atomic>
 
-struct Slot {
-    std::atomic<Slot*> next;
-};
+namespace MemoryPool {
+    #define SLOT_BASE_SIZE 8
+    #define MAX_SLOT_SIZE 512
 
-class MemoryPool {
-private:
-    int _slotSize;
-    int _blockSize;
-    std::mutex _mutex;
+    struct Slot {
+        std::atomic<Slot*> next;
+    };
 
-    Slot* _curSlot;
-    Slot* _lastSlot;
-    std::atomic<Slot*> _freeSlot;
+    class MemoryPool {
+        private:
+            int _slotSize;
+            int _blockSize;
+            std::mutex _mutex;
 
-    void allocateNewBlock();
+            Slot* _curSlot;
+            Slot* _lastSlot;
+            Slot* _firstBlock;
+            std::atomic<Slot*> _freeList;
 
-    size_t padPointer(char* p, size_t align);
+        public:
+            MemoryPool(size_t blockSize = 4096);
+            ~MemoryPool();
 
-    bool pushFreeList(Slot* slot);
-
-    Slot* popFreeList();
-public:
-    MemoryPool(size_t blockSize = 4096);
-    ~MemoryPool();
-};
+            void init(size_t);
+    };
+}
