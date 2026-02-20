@@ -20,4 +20,12 @@ namespace MemoryPool {
         }
         
     }
+
+    void MemoryPool::init(size_t size) {
+        _slotSize = size;
+        _firstBlock = nullptr;
+        _curSlot = nullptr;
+        _lastSlot = nullptr;
+        _freeList = nullptr;
+    }
 }
