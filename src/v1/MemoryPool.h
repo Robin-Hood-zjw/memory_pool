@@ -2,6 +2,7 @@
 
 #include <mutex>
 #include <atomic>
+#include <cassert>
 
 namespace MemoryPool {
     #define SLOT_BASE_SIZE 8

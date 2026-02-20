@@ -1,4 +1,4 @@
-#include "./memory_pool.h"
+#include "./MemoryPool.h"
 
 namespace MemoryPool {
     MemoryPool::MemoryPool(size_t blockSize = 4096):
@@ -22,6 +22,8 @@ namespace MemoryPool {
     }
 
     void MemoryPool::init(size_t size) {
+        assert(size > 0);
+
         _slotSize = size;
         _firstBlock = nullptr;
         _curSlot = nullptr;
@@ -54,6 +56,6 @@ namespace MemoryPool {
         size_t paddingSize = padPointer(body, _slotSize);
         _curSlot = reinterpret_cast<Slot*>(body + paddingSize);
 
-        _lastSlot = 
+        _lastSlot = reinterpret_cast<Slot*>(reinterpret_cast<size_t>(newBlock) + _blockSize - _slotSize + 1);
     }
 }
