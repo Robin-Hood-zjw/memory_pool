@@ -91,4 +91,17 @@ namespace MemoryPool {
         }
         
     }
+
+    bool MemoryPool::pushFreeList(Slot* slot) {
+        while (true) {
+            Slot* oldHead = _freeList.load(std::memory_order_relaxed);
+            slot->next.store(oldHead, std::memory_order_relaxed);
+
+            if (_freeList.compare_exchange_weak(
+                oldHead, slot, 
+                std::memory_order_release, 
+                std::memory_order_relaxed)
+            ) return true;
+        }
+    }
 }
