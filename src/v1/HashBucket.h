@@ -35,4 +35,21 @@ namespace MemoryPool {
             template<typename T>
             friend void deleteElement(T* p);
     };
+
+    template<typename T, typename... Args>
+    T* newElement(Args&&... args) {
+        T* p = nullptr;
+        p = reinterpret_cast<T*>(HashBucket::useMemory(sizeof(T)));
+
+        if (p) new(p) T(std::forward<Args>(args)...);
+        return p;
+    }
+
+    template<typename T>
+    void deleteElement(T* p) {
+        if (p) {
+            p->~T();
+            HashBucket::freeMemory(reinterpret_cast<void*>(p), sizeof(T))
+        }
+    }
 }
