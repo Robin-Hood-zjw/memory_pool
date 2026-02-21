@@ -100,8 +100,8 @@ namespace MemoryPool {
             if (_freeList.compare_exchange_weak(
                 oldHead, slot, 
                 std::memory_order_release, 
-                std::memory_order_relaxed)
-            ) return true;
+                std::memory_order_relaxed
+            )) return true;
         }
     }
 }
