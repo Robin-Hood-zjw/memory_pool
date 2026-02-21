@@ -47,6 +47,13 @@ namespace MemoryPool {
         return temp;
     }
 
+    void MemoryPool::deallocate(void* ptr) {
+        if (!ptr) return;
+
+        Slot* slot = reinterpret_cast<Slot*>(ptr);
+        pushFreeList(slot);
+    }
+
     void MemoryPool::allocateNewBlock() {
         void* newBlock = operator new(_blockSize);
         reinterpret_cast<Slot*>(newBlock)->next = _firstBlock;
