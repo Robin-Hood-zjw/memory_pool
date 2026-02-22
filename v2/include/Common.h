@@ -5,6 +5,7 @@
 
 namespace Pool {
     constexpr size_t ALIGNMENT = 8;
+    constexpr size_t PAGE_SIZE = 4096;
     constexpr size_t MAX_BYTES = 256 * 1024;
     constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;
 
