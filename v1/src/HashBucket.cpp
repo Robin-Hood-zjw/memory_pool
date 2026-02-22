@@ -1,7 +1,7 @@
 #include "../include/HashBucket.h"
 #include "../include/MemoryPool.h"
 
-namespace MemoryPool {
+namespace Pool {
     void HashBucket::initMemoryPool() {
         for (int i = 0; i < MEMORY_POOL_NUM; i++) {
             getMemoryPool(i).init((i + 1) * SLOT_BASE_SIZE);

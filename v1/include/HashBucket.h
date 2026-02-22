@@ -1,6 +1,6 @@
 #include "./MemoryPool.h"
 
-namespace MemoryPool {
+namespace Pool {
     #define SLOT_BASE_SIZE 8
     #define MAX_SLOT_SIZE 512
     #define MEMORY_POOL_NUM 64

@@ -5,7 +5,7 @@
 #include "../include/MemoryPool.h"
 #include "../include/HashBucket.h"
 
-using namespace MemoryPool;
+using namespace Pool;
 
 class P1 { int _id; };
 class P2 { int _id[5]; };
@@ -73,7 +73,7 @@ void BenchmarkNew(size_t ntimes, size_t nworks, size_t rounds) {
 }
 
 int main() {
-    MemoryPool::HashBucket::initMemoryPool();
+    Pool::HashBucket::initMemoryPool();
     BenchmarkMemoryPool(100, 1, 10);
 	std::cout << "===========================================================================" << std::endl;
 	std::cout << "===========================================================================" << std::endl;

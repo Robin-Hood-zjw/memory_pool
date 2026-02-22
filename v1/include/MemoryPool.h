@@ -4,7 +4,7 @@
 #include <atomic>
 #include <cassert>
 
-namespace MemoryPool {
+namespace Pool {
     struct Slot {
         std::atomic<Slot*> next;
     };

@@ -1,6 +1,6 @@
 #include "../include/MemoryPool.h"
 
-namespace MemoryPool {
+namespace Pool {
     MemoryPool::MemoryPool(size_t blockSize):
         _slotSize(0),
         _blockSize(blockSize),
