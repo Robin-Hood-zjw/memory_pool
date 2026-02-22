@@ -1,6 +1,5 @@
-#pragma once
-
-#include "./HashBucket.h"
+#include "../include/HashBucket.h"
+#include "../include/MemoryPool.h"
 
 namespace MemoryPool {
     void HashBucket::initMemoryPool() {

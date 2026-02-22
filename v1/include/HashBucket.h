@@ -1,5 +1,3 @@
-#pragma once
-
 #include "./MemoryPool.h"
 
 namespace MemoryPool {
@@ -35,7 +33,7 @@ namespace MemoryPool {
     void deleteElement(T* p) {
         if (p) {
             p->~T();
-            HashBucket::freeMemory(reinterpret_cast<void*>(p), sizeof(T))
+            HashBucket::freeMemory(reinterpret_cast<void*>(p), sizeof(T));
         }
     }
 }

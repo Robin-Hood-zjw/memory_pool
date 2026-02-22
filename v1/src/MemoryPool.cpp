@@ -1,7 +1,7 @@
-#include "./MemoryPool.h"
+#include "../include/MemoryPool.h"
 
 namespace MemoryPool {
-    MemoryPool::MemoryPool(size_t blockSize = 4096):
+    MemoryPool::MemoryPool(size_t blockSize):
         _slotSize(0),
         _blockSize(blockSize),
         _firstBlock(nullptr),
