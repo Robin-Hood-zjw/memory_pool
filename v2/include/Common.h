@@ -16,13 +16,8 @@ namespace Pool {
     };
 
     class SizeClass {
-        static size_t roundUp(size_t bytes) {
-            return (bytes + ALIGNMENT - 1) / ALIGNMENT * ALIGNMENT;
-        }
-
-        static size_t getIndex(size_t bytes) {
-            bytes = std::max(bytes, ALIGNMENT);
-            return (bytes + ALIGNMENT - 1) / ALIGNMENT - 1;
-        }
+        public:
+            static size_t roundUp(size_t bytes);
+            static size_t getIndex(size_t bytes);
     };
 }
