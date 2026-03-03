@@ -4,13 +4,15 @@
 
 #include <map>
 #include <mutex>
+#include <cstring>
+#include <sys/mman.h>
 
 namespace Pool {
     class PageCache {
         private:
             struct Span {
                 void* pageAddress;
-                size_t numPages;
+                size_t pageNum;
                 Span* next;
             };
             
@@ -19,7 +21,7 @@ namespace Pool {
             std::map<size_t, Span*> _freeSpans;
 
             PageCache() = default;
-            void* systemAlloc(size_t numPages);
+            void* systemAlloc(size_t pageNum);
 
         public:
             static PageCache& getInstance() {
@@ -27,7 +29,7 @@ namespace Pool {
                 return instance;
             }
 
-            void* allocateSpan(size_t numPages);
-            void deallocateSpan(void* ptr, size_t numPages);
+            void* allocateSpan(size_t pageNum);
+            void deallocateSpan(void* ptr, size_t pageNum);
     };
 }

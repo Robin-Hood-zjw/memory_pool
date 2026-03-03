@@ -55,10 +55,9 @@ namespace Pool {
         size_t batchNum = _freeListSize[index];
         if (batchNum < 2) return;
 
-        size_t keepNum = std::max(batchNum / 4, size_t(1));
-        size_t returnNum = batchNum - keepNum;
         char* current = static_cast<char*>(start);
-        char* splitNode = current;
+        size_t returnNum = std::max(batchNum / 4, size_t(1));
+        size_t keepNum = batchNum - returnNum;
 
         for (size_t i = 0; i < keepNum - 1; i++) {
             void* next = *reinterpret_cast<void**>(current);
@@ -73,12 +72,12 @@ namespace Pool {
         if (current) {
             void* next = *reinterpret_cast<void**>(current);
             *reinterpret_cast<void**>(current) = nullptr;
+
             _freeList[index] = start;
             _freeListSize[index] = keepNum;
 
             if (returnNum > 0 && next) {
-                size_t size2 = SizeClass::roundUp(size) * returnNum;
-                CentralCache::getInstance().returnRange(start, size2, index);
+                CentralCache::getInstance().returnRange(next, SizeClass::roundUp(size) * returnNum, index);
             }
         }
     }
