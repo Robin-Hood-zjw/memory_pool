@@ -72,7 +72,7 @@ namespace Pool {
             if (nextList == nextSpan) {
                 nextList = nextSpan->next;
                 found = true;
-            } else {
+            } else if (nextList) {
                 Span* prev = nextList;
                 while (prev && prev->next) {
                     if (prev->next == nextSpan) {
@@ -86,13 +86,9 @@ namespace Pool {
 
             if (found) {
                 span->pageNum += nextSpan->pageNum;
-                delete nextSpan;
                 _spanMap.erase(nextItr);
+                delete nextSpan;
             }
-
-            auto& list = _freeSpans[span->pageNum];
-            span->next = list;
-            list = span;
         }
 
         auto& list = _freeSpans[span->pageNum];

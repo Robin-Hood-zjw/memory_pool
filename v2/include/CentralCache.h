@@ -6,6 +6,7 @@
 #include <mutex>
 #include <atomic>
 #include <chrono>
+#include <thread>
 #include <unordered_map>
 
 namespace Pool {
@@ -24,6 +25,7 @@ namespace Pool {
             std::atomic<size_t> _spanCount = 0;
 
             static const size_t MAX_DELAY_COUNT = 48;
+
             std::array<std::atomic<size_t>, FREE_LIST_SIZE> _delayCounts;
             std::array<std::chrono::steady_clock::time_point, FREE_LIST_SIZE> _lastReturnTimes;
             static const std::chrono::milliseconds DELAY_INTERVAL;
