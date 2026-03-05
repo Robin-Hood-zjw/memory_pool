@@ -17,7 +17,7 @@ namespace Pool {
 
     class SizeClass {
         public:
-            static size_t roundUp(size_t bytes);
-            static size_t getIndex(size_t bytes);
+            static inline size_t roundUp(size_t bytes);
+            static inline size_t getIndex(size_t bytes);
     };
 }
