@@ -1,9 +1,9 @@
 #include "../include/MemoryPool.h"
 
+#include <atomic>
 #include <vector>
 #include <thread>
 #include <random>
-#include <atomic>
 #include <cassert>
 #include <cstring>
 #include <iostream>
