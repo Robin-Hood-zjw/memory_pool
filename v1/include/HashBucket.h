@@ -6,18 +6,18 @@ namespace Pool {
     #define MEMORY_POOL_NUM 64                                              // the total number of all the memory pools
 
     class HashBucket {
-        public:
-            static void initMemoryPool();                                   // initialize all the memory pools
-            static MemoryPool& getMemoryPool(int index);
+    public:
+        static void initMemoryPool();                                   // initialize all the memory pools
+        static MemoryPool& getMemoryPool(int index);
 
-            static void* useMemory(size_t size);                            // search the target memory pool and allocate a slot from the pool
-            static void freeMemory(void* ptr, size_t size);                 // search the target memory pool and deallocate the slot into the free list
+        static void* useMemory(size_t size);                            // search the target memory pool and allocate a slot from the pool
+        static void freeMemory(void* ptr, size_t size);                 // search the target memory pool and deallocate the slot into the free list
 
-            template<typename T, typename... Args>
-            friend T* newElement(Args&&... args);                           // factory method pattern: simulate to create a new object
+        template<typename T, typename... Args>
+        friend T* newElement(Args&&... args);                           // factory method pattern: simulate to create a new object
 
-            template<typename T>
-            friend void deleteElement(T* p);                                // factory method pattern: simulate to delete an object
+        template<typename T>
+        friend void deleteElement(T* p);                                // factory method pattern: simulate to delete an object
     };
 
     template<typename T, typename... Args>
