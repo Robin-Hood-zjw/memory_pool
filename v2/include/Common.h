@@ -15,7 +15,6 @@ namespace Pool {
         BlockHeader* next;                                      // connects to the next free memory block
     };
 
-    // convert the number of bytes into the standardized specification within the memory pool
     class SizeClass {
         public:
             static inline size_t roundUp(size_t bytes);         // align upwards
