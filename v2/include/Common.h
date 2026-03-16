@@ -5,7 +5,9 @@
 
 namespace Pool {
     constexpr size_t ALIGNMENT = 8;                             // the basic size of memory alignment benchmark
+    constexpr size_t SPAN_PAGES = 8;                            // the default span size when allocating from PageCache to CentralCache
     constexpr size_t PAGE_SIZE = 4096;                          // the size of a memory page
+    constexpr size_t MAX_DELAY_COUNT = 48;                      // a threshold that represents the "upper tolerance memory limit"
     constexpr size_t MAX_BYTES = 256 * 1024;                    // the max size of a single object in the memory pool
     constexpr size_t FREE_LIST_SIZE = MAX_BYTES / ALIGNMENT;    // the number of hash buckets after calculation
 

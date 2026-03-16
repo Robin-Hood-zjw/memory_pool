@@ -1,1 +1,0 @@
-/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/unit_test.dir/src/CentralCache.cpp.o CMakeFiles/unit_test.dir/src/Common.cpp.o CMakeFiles/unit_test.dir/src/PageCache.cpp.o CMakeFiles/unit_test.dir/src/ThreadCache.cpp.o CMakeFiles/unit_test.dir/tests/UnitTest.cpp.o -o unit_test

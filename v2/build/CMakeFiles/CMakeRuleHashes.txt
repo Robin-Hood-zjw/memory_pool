@@ -1,3 +1,0 @@
-# Hashes of file build rules.
-a55e70582e335331e1a685ea3eb62be6 CMakeFiles/perf
-22f872237adb376445b6cc864a37bebf CMakeFiles/test
