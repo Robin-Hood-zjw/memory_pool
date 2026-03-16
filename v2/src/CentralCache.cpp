@@ -77,12 +77,11 @@ namespace Pool {
             // calculate the boundry of the span
             void* start = tracker->spanAddress.load(std::memory_order_relaxed);
             size_t pageNum = tracker->numPages.load(std::memory_order_relaxed);
-            void* end = start + pageNum * PAGE_SIZE;
+            void* end = static_cast<char*>(start) + pageNum * PAGE_SIZE;
 
             // remove all blocks in this span from the central list
             void* cur = _centralFreeList[index].load(std::memory_order_relaxed);
             void* prev = nullptr;
-            void* head = cur;
             void* newHead = nullptr;
 
             while (cur) {
@@ -217,7 +216,7 @@ namespace Pool {
         }
 
         _locks[index].clear(std::memory_order_release);
-        return;
+        return result;
     }
 
     /**

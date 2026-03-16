@@ -107,7 +107,7 @@ namespace Pool {
      * @return a pointer to the allocated memory, or result of malloc if too large size
      **/
     void* ThreadCache::allocate(size_t size) {
-        if (size == 0) size == ALIGNMENT;
+        if (size == 0) size = ALIGNMENT;
         if (size > MAX_BYTES) return malloc(size);
 
         // locate the correct free list for this size
