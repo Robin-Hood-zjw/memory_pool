@@ -76,7 +76,7 @@ namespace Pool {
         if (newFreeCnt == tracker->blockCount.load(std::memory_order_relaxed)) {
             // calculate the boundry of the span
             void* start = tracker->spanAddress.load(std::memory_order_relaxed);
-            size_t pageNum = tracker->numPages.load(std::memory_order_relaxed);
+            size_t pageNum = tracker->pageNum.load(std::memory_order_relaxed);
             void* end = static_cast<char*>(start) + pageNum * PAGE_SIZE;
 
             // remove all blocks in this span from the central list
@@ -125,7 +125,7 @@ namespace Pool {
     SpanTracker* CentralCache::getSpanTracker(void* blockAddress) {
         for (size_t i = 0; i < _spanCount.load(std::memory_order_relaxed); i++) {
             void* start = _spanTrackers[i].spanAddress.load(std::memory_order_relaxed);
-            size_t pageNum = _spanTrackers[i].numPages.load(std::memory_order_relaxed);
+            size_t pageNum = _spanTrackers[i].pageNum.load(std::memory_order_relaxed);
             void* end = static_cast<char*>(start) + pageNum * PAGE_SIZE;
 
             if (blockAddress >= start && blockAddress < end) return &_spanTrackers[i];
@@ -194,7 +194,7 @@ namespace Pool {
                     size_t idx = _spanCount;
                     if (idx < _spanTrackers.size()) {
                         _spanTrackers[idx].spanAddress.store(result, std::memory_order_release);
-                        _spanTrackers[idx].numPages.store(pageNum, std::memory_order_release);
+                        _spanTrackers[idx].pageNum.store(pageNum, std::memory_order_release);
                         _spanTrackers[idx].freeCount.store(blockCnt, std::memory_order_release);
                         _spanTrackers[idx].blockCount.store(blockCnt - 1, std::memory_order_release);
                     }
