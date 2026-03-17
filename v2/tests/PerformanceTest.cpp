@@ -1,3 +1,4 @@
+#include "Timer.cpp"
 #include "../include/MemoryPool.h"
 
 #include <array>
@@ -9,19 +10,8 @@
 #include <iostream>
 
 using namespace Pool;
-using namespace std::chrono;
 
-class Timer {
-    high_resolution_clock::time_point start;
-public:
-    Timer(): start(high_resolution_clock::now()) {}
-
-    double elapsed() {
-        auto end = high_resolution_clock::now();
-        return duration_cast<microseconds>(end - start).count() / 1000.0;
-    }
-};
-
+// This performance test suite provides a comparison between your custom MemoryPool and the standard Global Allocator (new/delete) using A/B test.
 class PerformanceTest {
 private:
     struct TestStats {
@@ -32,10 +22,15 @@ private:
     };
 
 public:
+    /**
+     * @brief pre-heat the memory system to ensure OS pages are mapped and 
+     * static pool structures are initialized before timing begins.
+     **/
     static void warmup() {
         std::cout << "Warming up memory systems..." << std::endl;
         std::vector<std::pair<void*, size_t>> warmupPtrs;
 
+        // perform a cycle of allocations across all common size classes
         for (size_t i = 0; i < 1000; ++i) {
             for (size_t size : {8, 16, 32, 64, 128, 256, 512, 1024}) {
                 void* p = MemoryPool::allocate(size);
@@ -43,12 +38,17 @@ public:
             }
         }
 
+        // release them to populate the ThreadCache/CentralCache
         for (const auto& [ptr, size] : warmupPtrs)
             MemoryPool::deallocate(ptr, size);
 
         std::cout << "Warmup complete.\n" << std::endl;
     }
 
+    /**
+     * @brief test the efficiency of high-frequency small object allocations
+     * demonstrates the advantage of avoiding frequent system calls
+     **/
     static void testSmallAllocation() {
         constexpr size_t NUM_ALLOCS = 50000;
         const size_t SIZES[] = {8, 16, 32, 64, 128, 256};
@@ -118,6 +118,9 @@ public:
     }
     }
 
+    /**
+     * @brief simulate a high-concurrency environment to test ThreadCache lock-free paths
+     **/
     static void testMultiThreaded() {
             constexpr size_t NUM_THREADS = 4;
             constexpr size_t ALLOCS_PER_THREAD = 25000;
@@ -213,6 +216,9 @@ public:
             }
         }
 
+    /**
+     * @brief test non-uniform allocation patterns (60% small, 30% medium, 10% large)
+     **/
     static void testMixedSizes() {
             constexpr size_t NUM_ALLOCS = 100000;
 
