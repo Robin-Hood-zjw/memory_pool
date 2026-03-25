@@ -53,10 +53,10 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/zjw/Documents/projects/memory/v2
+CMAKE_SOURCE_DIR = /Users/zjw/Documents/projects/memory_pool/v2
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/zjw/Documents/projects/memory/v2/build
+CMAKE_BINARY_DIR = /Users/zjw/Documents/projects/memory_pool/v2/build
 
 # Utility rule file for perf.
 
@@ -85,6 +85,6 @@ CMakeFiles/perf.dir/clean:
 .PHONY : CMakeFiles/perf.dir/clean
 
 CMakeFiles/perf.dir/depend:
-	cd /Users/zjw/Documents/projects/memory/v2/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/zjw/Documents/projects/memory/v2 /Users/zjw/Documents/projects/memory/v2 /Users/zjw/Documents/projects/memory/v2/build /Users/zjw/Documents/projects/memory/v2/build /Users/zjw/Documents/projects/memory/v2/build/CMakeFiles/perf.dir/DependInfo.cmake "--color=$(COLOR)" perf
+	cd /Users/zjw/Documents/projects/memory_pool/v2/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/zjw/Documents/projects/memory_pool/v2 /Users/zjw/Documents/projects/memory_pool/v2 /Users/zjw/Documents/projects/memory_pool/v2/build /Users/zjw/Documents/projects/memory_pool/v2/build /Users/zjw/Documents/projects/memory_pool/v2/build/CMakeFiles/perf.dir/DependInfo.cmake "--color=$(COLOR)" perf
 .PHONY : CMakeFiles/perf.dir/depend
 

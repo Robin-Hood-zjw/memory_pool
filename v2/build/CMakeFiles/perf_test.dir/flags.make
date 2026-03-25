@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/zjw/Documents/projects/memory/v2/include
+CXX_INCLUDES = -I/Users/zjw/Documents/projects/memory_pool/v2/include
 
 CXX_FLAGSarm64 = -std=gnu++17 -arch arm64 -Wall -O2
 

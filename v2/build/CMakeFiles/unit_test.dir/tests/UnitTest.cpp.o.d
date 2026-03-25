@@ -1,8 +1,8 @@
 CMakeFiles/unit_test.dir/tests/UnitTest.cpp.o: \
-  /Users/zjw/Documents/projects/memory/v2/tests/UnitTest.cpp \
-  /Users/zjw/Documents/projects/memory/v2/tests/../include/MemoryPool.h \
-  /Users/zjw/Documents/projects/memory/v2/tests/../include/./ThreadCache.h \
-  /Users/zjw/Documents/projects/memory/v2/tests/../include/././Common.h \
+  /Users/zjw/Documents/projects/memory_pool/v2/tests/UnitTest.cpp \
+  /Users/zjw/Documents/projects/memory_pool/v2/tests/../include/MemoryPool.h \
+  /Users/zjw/Documents/projects/memory_pool/v2/tests/../include/./ThreadCache.h \
+  /Users/zjw/Documents/projects/memory_pool/v2/tests/../include/././Common.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/array \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/equal.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/comp.h \

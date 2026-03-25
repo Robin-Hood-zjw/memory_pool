@@ -1,7 +1,7 @@
 {
 	"InstallScripts" : 
 	[
-		"/Users/zjw/Documents/projects/memory/v2/build/cmake_install.cmake"
+		"/Users/zjw/Documents/projects/memory_pool/v2/build/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

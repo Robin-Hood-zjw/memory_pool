@@ -16,7 +16,7 @@ namespace Pool {
      **/
     struct SpanTracker {
         std::atomic<void*> spanAddress = nullptr;                                                                           // the address of the span
-        std::atomic<size_t> numPages = 0;                                                                                   // total pages of the span
+        std::atomic<size_t> pageNum = 0;                                                                                   // total pages of the span
         std::atomic<size_t> blockCount = 0;                                                                                 // the number of total small blocks in this span
         std::atomic<size_t> freeCount = 0;                                                                                  // the number of available small blocks
     };
