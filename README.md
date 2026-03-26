@@ -22,7 +22,10 @@ A memory pool is a memory allocation optimization technique. It pre-allocates a 
 
 ### 
 
-- **ThreadCache**：Once each thread has retrieved its own Thread-Local Storage (TLS) variable, whenever that thread requests memory, the ThreadCache object fetches a specified number of memory objects from the corresponding free list and returns them to the user. No locking is required here; by utilizing Thread-Local Storage, each thread possesses its own unique ThreadCache object dedicated to maintaining its free list.
+- **ThreadCache**：Once each thread has retrieved its TLS variable, whenever that thread requests memory, ThreadCache fetches a specified number of memory objects from the corresponding free list and returns them to the user.
+    * no lock is required
+    * each thread has its ThreadCache object to maintain its free list via TLS
+
 - **CentralCache**：The CentralCache is shared by all threads, while the ThreadCache acquires memory objects from the CentralCache on an as-needed basis. The CentralCache conditionally reclaims memory objects from the ThreadCache to prevent a single thread from monopolizing an excessive number of objects—a scenario that would leave other threads with insufficient resources and lead to efficiency issues. This level of caching serves to achieve a more balanced, demand-driven allocation of memory across multiple threads. Since the CentralCache is a shared resource subject to contention, accessing it to retrieve memory objects requires the use of locks.
 - **PageCache**: This serves as an additional caching layer built atop the CentralCache; memory within it is stored and allocated in units of pages. When the CentralCache lacks available Span objects, the PageCache allocates a specific number of pages, subdivides them into fixed-size blocks of memory, and assigns them to the CentralCache. Furthermore, the PageCache reclaims eligible Span objects from the CentralCache and merges adjacent pages to form larger pages, thereby mitigating the issue of memory fragmentation. 
 
