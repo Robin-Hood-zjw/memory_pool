@@ -22,9 +22,9 @@ A memory pool is a memory allocation optimization technique. It pre-allocates a 
 
 ### 
 
-* 线程缓存：每个线程获取自己的线程本地存储变量(TLS)后，当这个线程去申请小于64k的内存的时候，ThreadCache对象从相应的自由链表上取下给定数目的内存 对象返给用户。这里不需要加锁，通过线程本地存储，每个线程都拥有自己唯一的一个ThreadCache对象来维护自由链表。这是本项目中高效的一个地方
-* 中心缓存：中心缓存是所有线程所共享的，ThreadCache是按需要从CentralCache中获取内存对象。 CentralCache条件性的回收ThreadCache中的内存对象，避免一个线程占用了太多的内存对象，而其他线程的内存对象不足，带来效率问题。本级缓存可以达到内存分配在多个线程中更均衡的按需调度的目的。CentralCache是存在竞争的，所以从这里取内存对象是需要加锁
-* 页缓存是在CentralCache缓存上面加的一层缓存，存储的内存是以页为单位存储及分配的，CentralCache没有Span对象时，从PageCache分配出一定数量的page，并切割成定长大小的小块内存，分配给CentralCache。PageCache会回收CentralCache满足条件的span对象，并且合并相邻的页，组成更大的页，缓解内存碎片的问题 
+- **ThreadCache**：Once each thread has retrieved its own Thread-Local Storage (TLS) variable, whenever that thread requests memory, the ThreadCache object fetches a specified number of memory objects from the corresponding free list and returns them to the user. No locking is required here; by utilizing Thread-Local Storage, each thread possesses its own unique ThreadCache object dedicated to maintaining its free list.
+- **CentralCache**：The CentralCache is shared by all threads, while the ThreadCache acquires memory objects from the CentralCache on an as-needed basis. The CentralCache conditionally reclaims memory objects from the ThreadCache to prevent a single thread from monopolizing an excessive number of objects—a scenario that would leave other threads with insufficient resources and lead to efficiency issues. This level of caching serves to achieve a more balanced, demand-driven allocation of memory across multiple threads. Since the CentralCache is a shared resource subject to contention, accessing it to retrieve memory objects requires the use of locks.
+- **PageCache**: This serves as an additional caching layer built atop the CentralCache; memory within it is stored and allocated in units of pages. When the CentralCache lacks available Span objects, the PageCache allocates a specific number of pages, subdivides them into fixed-size blocks of memory, and assigns them to the CentralCache. Furthermore, the PageCache reclaims eligible Span objects from the CentralCache and merges adjacent pages to form larger pages, thereby mitigating the issue of memory fragmentation. 
 
 ### 四.模快接口
 
